@@ -1,0 +1,11 @@
+# Create React App:
+$ npx create-react-app test-app
+
+We suggest that you begin by typing:
+
+  cd test-app
+  npm start
+
+# Start a development server:
+$ npm start
+http://localhost:3000/
