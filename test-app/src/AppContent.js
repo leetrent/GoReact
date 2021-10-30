@@ -2,45 +2,52 @@ import React, { Component } from 'react';
 
 export default class AppContent extends Component {
 
-    constructor(props) {
-        super(props);
-        this.listRef = React.createRef();
-    }
+    state = {posts: []};
 
     anotherFunction = () => {
-        console.log("[AppContent][anotherFunction()] =>");
+        console.log("another function");
     }
 
     leftParagraph = () => {
-        console.log("[AppContent][leftParagraph()] =>");
+        console.log("left the paragraph");
     }
 
     fetchList = () => {
         fetch('https://jsonplaceholder.typicode.com/posts')
-        .then((response) => response.json())
-        .then(json => {
-            console.log(json);
-            //let posts = document.getElementById("post-list");
-            const posts = this.listRef.current;
-            json.forEach(function(obj) {
-                let li = document.createElement("li");
-                li.appendChild(document.createTextNode(obj.title));
-                posts.appendChild(li);
+            .then((response) => response.json())
+            .then(json => {
+                this.setState({posts: json});
             })
-        });
     }
 
-    render() {
+    clickedItem = (x) => {
+        console.log("clicked", x);
+    }
+
+    render(){
         return (
             <div>
-                Application Content
+                This is the content.
+
                 <br />
-                <hr/>
-                <p onMouseEnter={this.anotherFunction} onMouseLeave={this.leftParagraph}>Temporary Paragraph</p>
-                <button className="btn btn-sm btn-primary mt-3" href="#" onClick={this.fetchList}>Fetch Data</button>
-                <hr/>
-                <ul id="post-list" ref={this.listRef}></ul>
+                <hr />
+                <p onMouseEnter={this.anotherFunction} onMouseLeave={this.leftParagraph}>This is some text</p>
+
+
+                <button onClick={this.fetchList} className="btn btn-primary">Fetch Data</button>
+
+                <hr />
+
+                <p>Posts is {this.state.posts.length} items long</p>
+
+                <ul>
+                    {this.state.posts.map( (item) => (
+                        <li key={item.id}>
+                            <a href="#!" onClick={ () => this.clickedItem(item.id) }>{item.title}</a>
+                        </li>
+                    ))}
+                </ul>
             </div>
-        );    
+        );
     }
 }
