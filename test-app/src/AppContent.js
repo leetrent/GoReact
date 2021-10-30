@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 export default class AppContent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.listRef = React.createRef();
+    }
+
     anotherFunction = () => {
         console.log("[AppContent][anotherFunction()] =>");
     }
@@ -15,7 +20,8 @@ export default class AppContent extends Component {
         .then((response) => response.json())
         .then(json => {
             console.log(json);
-            let posts = document.getElementById("post-list");
+            //let posts = document.getElementById("post-list");
+            const posts = this.listRef.current;
             json.forEach(function(obj) {
                 let li = document.createElement("li");
                 li.appendChild(document.createTextNode(obj.title));
@@ -33,7 +39,7 @@ export default class AppContent extends Component {
                 <p onMouseEnter={this.anotherFunction} onMouseLeave={this.leftParagraph}>Temporary Paragraph</p>
                 <button className="btn btn-sm btn-primary mt-3" href="#" onClick={this.fetchList}>Fetch Data</button>
                 <hr/>
-                <ul id="post-list"></ul>
+                <ul id="post-list" ref={this.listRef}></ul>
             </div>
         );    
     }
