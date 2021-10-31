@@ -32,6 +32,7 @@ class App extends Component {
           handlePostChange={this.handlePostChange}         
           />
         <AppContent 
+          posts={this.state.posts}
           handlePostChange={this.handlePostChange}
           />
         <AppFooter />

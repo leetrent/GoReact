@@ -6,8 +6,6 @@ export default class AppContent extends Component {
         this.handlePostChange = this.handlePostChange.bind(this);
     }
 
-    state = {posts: []};
-
     handlePostChange(posts) {
         this.props.handlePostChange(posts);
     } 
@@ -16,7 +14,6 @@ export default class AppContent extends Component {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then((response) => response.json())
             .then(json => {
-                this.setState({posts: json});
                 this.handlePostChange(json);
             })
     }
@@ -37,10 +34,10 @@ export default class AppContent extends Component {
 
                 <hr />
 
-                <p>Posts is {this.state.posts.length} items long</p>
+                <p>Posts is {this.props.posts.length} items long</p>
 
                 <ul>
-                    {this.state.posts.map( (item) => (
+                    {this.props.posts.map( (item) => (
                         <li key={item.id}>
                             <a href="#!" onClick={ () => this.clickedItem(item.id) }>{item.title}</a>
                         </li>
