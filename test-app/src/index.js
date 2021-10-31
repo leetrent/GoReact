@@ -7,18 +7,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 class App extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.handlePostChange = this.handlePostChange.bind(this);
+    this.state = { posts: [] };
 
+  }
+
+  handlePostChange(p_posts) {
+    this.setState( {posts: p_posts});
+  }
+
+  render() {
     const appProps = {
       title : "Application Title",
       subject : "Application Subject",
       favoriteColor : "blue"
     }
-
     return (
       <div className="app">
-        <AppHeader {...appProps}/>
-        <AppContent />
+        <AppHeader 
+          {...appProps} 
+          posts={this.state.posts}
+          handlePostChange={this.handlePostChange}         
+          />
+        <AppContent 
+          handlePostChange={this.handlePostChange}
+          />
         <AppFooter />
       </div>
     );
