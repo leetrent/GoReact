@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import AppHeader from './AppHeader';
 import AppContent from './AppContent';
-import AppFooter from './AppFooter';
+import AppFooterFuncComp from './AppFooterFuncComp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -34,7 +34,7 @@ class App extends Component {
         <AppContent 
           handlePostChange={this.handlePostChange}
           />
-        <AppFooter />
+        <AppFooterFuncComp companyName={"TrentTEK LLC"}/>
       </div>
     );
 
