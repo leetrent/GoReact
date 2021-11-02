@@ -1,6 +1,6 @@
 import React from 'react';
-//import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import {HashRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link, useParams} from 'react-router-dom';
+//import {HashRouter as Router, Switch, Route, Link, useParams} from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import Movies from './components/Movies';
@@ -34,19 +34,27 @@ export default function App() {
           </div>
           <div className="col-md-10">
             <Switch>
-              <Router path="/movies">
+              <Route path="/movies/:id">
+                <Movie />
+              </Route>
+              <Route path="/movies">
                 <Movies />
-              </Router>
-              <Router path="/admin">
+              </Route>
+              <Route path="/admin">
                 <Admin />
-              </Router>
-              <Router path="/">
+              </Route>
+              <Route path="/">
                 <Home />
-              </Router>
+              </Route>
             </Switch>
           </div>
         </div>
       </div>
     </Router>
   );
+}
+
+function Movie() {
+  let {id} = useParams();
+  return <h2>Movie ID: {id}</h2>;
 }
