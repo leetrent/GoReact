@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Movies extends Component {
     render() {
         return (
-            <h2>Choose a movie</h2>
+            <h2>You are currently on the Movies page.</h2>
         );
     }
 }
