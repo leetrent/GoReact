@@ -12,3 +12,6 @@ http://localhost:3000/
 
 # Install Bootstrap:
 $ npm install bootstrap
+
+# Install React Router DOM:
+$ npm install react-router-dom
