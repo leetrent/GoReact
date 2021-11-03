@@ -1,0 +1,1 @@
+$ sql % psql -d go_movies -f go_movies.sql
