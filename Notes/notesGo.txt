@@ -1,4 +1,11 @@
 $ go mod init backend
 go: creating new go.mod: module backend
 
+# Only one file in api folder:
 $ go run cmd/api/main.go
+
+# More than one file in api folder:
+$ go run cmd/api/*.go
+
+# Install julienschmidt/httprouter:
+$ go get -u github.com/julienschmidt/httprouter
