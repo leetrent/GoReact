@@ -1,0 +1,4 @@
+$ go mod init backend
+go: creating new go.mod: module backend
+
+$ go run cmd/api/main.go
