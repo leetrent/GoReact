@@ -9,3 +9,6 @@ $ go run cmd/api/*.go
 
 # Install julienschmidt/httprouter:
 $ go get -u github.com/julienschmidt/httprouter
+
+#Install database driver:
+$ go get -u github.com/lib/pq@v1.10.0
