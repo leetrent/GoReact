@@ -6,6 +6,7 @@ $ go run cmd/api/main.go
 
 # More than one file in api folder:
 $ go run cmd/api/*.go
+$ go run ./cmd/api
 
 # Install julienschmidt/httprouter:
 $ go get -u github.com/julienschmidt/httprouter
