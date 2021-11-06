@@ -30,9 +30,8 @@ export default class Movies extends Component {
                         isLoaded: true,
                         error
                     });
-                }
-                );
-            })
+                });
+            });
     }       
 
     render() {
