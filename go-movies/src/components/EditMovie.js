@@ -26,7 +26,7 @@ export default class EditMovie extends Component {
                 <hr />
                 <form method="POST">
                     <div className="mb-3">
-                        <label for="title" className="form-label">Title</label>
+                        <label htmlFor="title" className="form-label">Title</label>
                         <input
                             id="title"
                             name="title"
@@ -36,7 +36,7 @@ export default class EditMovie extends Component {
                         </input>
                     </div>
                     <div className="mb-3">
-                        <label for="release_date" className="form-label">Release Date</label>
+                        <label htmlFor="release_date" className="form-label">Release Date</label>
                         <input
                             id="release_date"
                             name="release_date"
@@ -46,7 +46,7 @@ export default class EditMovie extends Component {
                         </input>
                     </div>
                     <div className="mb-3">
-                        <label for="runetime" className="form-label">Runetime</label>
+                        <label htmlFor="runetime" className="form-label">Runetime</label>
                         <input
                             id="runetime"
                             name="runetime"
@@ -56,7 +56,7 @@ export default class EditMovie extends Component {
                         </input>
                     </div>
                     <div className="mb-3">
-                        <label for="mpaa_rating" className="form-label">MPAA Rating</label>
+                        <label htmlFor="mpaa_rating" className="form-label">MPAA Rating</label>
                         <select id="mpaa_rating" className="form-select" value={movie.mpaa_rating}>
                             <option className="form-select">Choose...</option>
                             <option className="form-select" value="G">G</option>
@@ -67,7 +67,7 @@ export default class EditMovie extends Component {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <label for="rating" className="form-label">Rating</label>
+                        <label htmlFor="rating" className="form-label">Rating</label>
                         <input
                             id="rating"
                             name="rating"
@@ -77,7 +77,7 @@ export default class EditMovie extends Component {
                         </input>
                     </div>  
                     <div className="mb-3">
-                        <label for="rating" className="form-label">Description</label>
+                        <label htmlFor="rating" className="form-label">Description</label>
                         <textarea 
                         id="description"
                         name="description"
@@ -86,6 +86,9 @@ export default class EditMovie extends Component {
                     </div>
                     <button className="btn btn-primary">Save</button>       
                 </form>
+                <div className="mt-3">
+                    <pre>{JSON.stringify(this.state, null, 3)}</pre>
+                </div>
             </Fragment>
         )
 
