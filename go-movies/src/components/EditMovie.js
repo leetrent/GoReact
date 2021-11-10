@@ -131,7 +131,7 @@ export default class EditMovie extends Component {
                             rows="3"
                             className="form-control"
                             onChange={this.handleChange}
-                            value={movie.value}
+                            value={movie.description}
                         />
                     </div>
                     <button className="btn btn-primary">Save</button>       
