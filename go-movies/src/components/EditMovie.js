@@ -25,7 +25,8 @@ export default class EditMovie extends Component {
                 {id: "NC17", value: "NC17" }
             ],
             isLoaded: false,
-            error: null
+            error: null,
+            errors: []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -35,6 +36,18 @@ export default class EditMovie extends Component {
     handleSubmit = (evt) => {
         const logSnippet = "[EditMovie][handleSubmit] =>";
         evt.preventDefault();
+
+        // BEGIN: CLIENT SIDE VALIDATION
+        let errors = [];
+        if (this.state.movie.title === "") {
+            errors.push("title");
+        }
+        this.setState({errors: errors});
+        if (errors.length > 0) {
+            return false;
+        }
+        // END: CLIENT SIDE VALIDATION
+
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
 
@@ -65,7 +78,10 @@ export default class EditMovie extends Component {
                 [name]: value
             }
         }));
+    }
 
+    hasError(key) {
+        return this.state.errors.indexOf(key) !== -1;
     }
 
     componentDidMount() {
@@ -138,6 +154,9 @@ export default class EditMovie extends Component {
                             name={"title"}
                             value={movie.title}
                             handleChange={this.handleChange}
+                            className={this.hasError("title") ? "is-invalid" : ""}
+                            errorDiv={this.hasError("title") ? "text-danger" : "d-none"}
+                            errorMsg={"Please provide a movie title."}
                         />
                         <Input 
                             type={"date"}

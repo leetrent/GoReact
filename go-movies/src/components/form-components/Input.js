@@ -8,9 +8,10 @@ const Input = (props) => {
             type={props.type}
             value={props.value}
             placeholder={props.placeholder}
-            className="form-control"
+            className={`form-control ${props.className}`}
             onChange={props.handleChange}>
         </input>
+        <div className={props.errorDiv}>{props.errorMsg}</div>
     </div>
     );
 };
