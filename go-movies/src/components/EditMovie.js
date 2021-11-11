@@ -124,7 +124,7 @@ export default class EditMovie extends Component {
                 <Fragment>
                     <h2>Add/Edit Movie</h2>
                     <hr />
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="needs-validation" onSubmit={this.handleSubmit} noValidate>
                         <input
                             type="hidden"
                             name="id"
@@ -138,20 +138,25 @@ export default class EditMovie extends Component {
                             name={"title"}
                             value={movie.title}
                             handleChange={this.handleChange}
+                            errormsg={"Please provide a movie title."}
                         />
                         <Input 
                             type={"date"}
                             title={"Release Date"}
                             name={"release_date"}
                             value={movie.release_date}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            errormsg={"Please provide a release date."}
+                            />
 
                         <Input 
                             type={"text"}
                             title={"Runetime"}
                             name={"runtime"}
                             value={movie.runtime}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            errormsg={"Please provide a runtime in minutes."}
+                            />
 
                         <Select 
                             title={"MPAA Rating"}
@@ -166,7 +171,9 @@ export default class EditMovie extends Component {
                             title={"Rating"}
                             name={"rating"}
                             value={movie.rating}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            errormsg={"Please rate this movie on a scale of 1-5."}
+                            />
 
                         <Textarea 
                             title={"Description"}

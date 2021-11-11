@@ -9,8 +9,10 @@ const Input = (props) => {
             value={props.value}
             placeholder={props.placeholder}
             className="form-control"
-            onChange={props.handleChange}>
+            onChange={props.handleChange}
+            required>
         </input>
+        <div className="invalid-feedback">{props.errormsg}</div>
     </div>
     );
 };
