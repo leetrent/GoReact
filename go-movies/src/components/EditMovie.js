@@ -71,16 +71,19 @@ export default class EditMovie extends Component {
         let value = evt.target.value;
         let name = evt.target.name;
 
-        console.log("[EditMovie][handleChange] => (this.state.movie.title):", this.state.movie.title);
-        console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
-        console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
+        // console.log("[EditMovie][handleChange] => (this.state.movie.title):", this.state.movie.title);
+        // console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
+        // console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
         
         // BEGIN: CLIENT SIDE VALIDATION
         let errors = {};
-        if (this.state.movie.title === "") {
-            errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
-        } else {
-            errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        switch(evt.target.name) {
+            case 'title':
+                if (evt.target.value === "") {
+                    errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+                } else {
+                    errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
         }
         // END: CLIENT SIDE VALIDATION
 
