@@ -26,7 +26,9 @@ export default class EditMovie extends Component {
             ],
             isLoaded: false,
             error: null,
-            errors: []
+            errors: {
+                "title" : {errorCss: "", errorDiv: "d-none", errorMsg: ""}
+            }
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -40,7 +42,7 @@ export default class EditMovie extends Component {
         // BEGIN: CLIENT SIDE VALIDATION
         let errors = [];
         if (this.state.movie.title === "") {
-            errors.push("title");
+            errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
         }
         this.setState({errors: errors});
         if (errors.length > 0) {
@@ -69,14 +71,25 @@ export default class EditMovie extends Component {
         let value = evt.target.value;
         let name = evt.target.name;
 
+        console.log("[EditMovie][handleChange] => (this.state.movie.title):", this.state.movie.title);
         console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
         console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
+        
+        // BEGIN: CLIENT SIDE VALIDATION
+        let errors = {};
+        if (this.state.movie.title === "") {
+            errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+        } else {
+            errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+        // END: CLIENT SIDE VALIDATION
 
         this.setState( (prevState) => ({
             movie: {
                 ...prevState.movie,
                 [name]: value
-            }
+            },
+            errors: errors
         }));
     }
 
@@ -129,7 +142,7 @@ export default class EditMovie extends Component {
     }
 
     render() {
-        let {movie, isLoaded, error} = this.state;
+        let {movie, isLoaded, error, errors} = this.state;
 
         if (error) {
             return <div>Error: {error.message}</div>
@@ -154,9 +167,9 @@ export default class EditMovie extends Component {
                             name={"title"}
                             value={movie.title}
                             handleChange={this.handleChange}
-                            className={this.hasError("title") ? "is-invalid" : ""}
-                            errorDiv={this.hasError("title") ? "text-danger" : "d-none"}
-                            errorMsg={"Please provide a movie title."}
+                            className={errors["title"].errorCss}
+                            errorDiv={errors["title"].errorDiv}
+                            errorMsg={errors["title"].errorMsg}
                         />
                         <Input 
                             type={"date"}
