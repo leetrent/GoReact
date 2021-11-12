@@ -27,7 +27,8 @@ export default class EditMovie extends Component {
             isLoaded: false,
             error: null,
             errors: {
-                "title" : {errorCss: "", errorDiv: "d-none", errorMsg: ""}
+                "title"         : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                "release_date"  : {errorCss: "", errorDiv: "d-none", errorMsg: ""}
             }
         }
 
@@ -38,22 +39,33 @@ export default class EditMovie extends Component {
     handleSubmit = (evt) => {
         const logSnippet = "[EditMovie][handleSubmit] =>";
         evt.preventDefault();
+        const data = new FormData(evt.target);
+        const payload = Object.fromEntries(data.entries());
+
+        console.log(`${logSnippet} (payload): `, payload);
+        console.log(`${logSnippet} (payload.title): `, payload.title);
+        console.log(`${logSnippet} (payload["title"]): `, payload["title"]);
 
         // BEGIN: CLIENT SIDE VALIDATION
-        let errors = [];
-        if (this.state.movie.title === "") {
+        let errors = {};
+        if (payload.title === "") {
             errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+        } else {
+            errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         }
+
+        if (payload.release_date === "") {
+            errors["release_date"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a release date for this movie."};
+        } else {
+            errors["release_date"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+
         this.setState({errors: errors});
         if (errors.length > 0) {
             return false;
         }
         // END: CLIENT SIDE VALIDATION
 
-        const data = new FormData(evt.target);
-        const payload = Object.fromEntries(data.entries());
-
-        console.log(`${logSnippet} (payload): `, payload);
 
         const requestOptions = {
             method: 'POST',
@@ -71,12 +83,13 @@ export default class EditMovie extends Component {
         let value = evt.target.value;
         let name = evt.target.name;
 
-        // console.log("[EditMovie][handleChange] => (this.state.movie.title):", this.state.movie.title);
-        // console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
-        // console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
+        console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
+        console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
         
         // BEGIN: CLIENT SIDE VALIDATION
         let errors = {};
+        errors["title"]         = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        errors["release_date"]  = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         switch(evt.target.name) {
             case 'title':
                 if (evt.target.value === "") {
@@ -84,6 +97,14 @@ export default class EditMovie extends Component {
                 } else {
                     errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
                 }
+                break;
+            case 'release_date':
+                if (evt.target.value === "") {
+                    errors["release_date"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a release date for this movie."};
+                } else {
+                    errors["release_date"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
+                break;
         }
         // END: CLIENT SIDE VALIDATION
 
@@ -179,7 +200,11 @@ export default class EditMovie extends Component {
                             title={"Release Date"}
                             name={"release_date"}
                             value={movie.release_date}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            className={errors["release_date"].errorCss}
+                            errorDiv={errors["release_date"].errorDiv}
+                            errorMsg={errors["release_date"].errorMsg}
+                        />
 
                         <Input 
                             type={"text"}
