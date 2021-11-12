@@ -207,8 +207,8 @@ export default class EditMovie extends Component {
                         />
 
                         <Input 
-                            type={"text"}
-                            title={"Runetime"}
+                            type={"number"}
+                            title={"Runetime (in minutes)"}
                             name={"runtime"}
                             value={movie.runtime}
                             handleChange={this.handleChange}/>
@@ -222,8 +222,8 @@ export default class EditMovie extends Component {
                             placeholder={"Choose..."}/>
 
                         <Input 
-                            type={"text"}
-                            title={"Rating"}
+                            type={"number"}
+                            title={"Rating (1-5)"}
                             name={"rating"}
                             value={movie.rating}
                             handleChange={this.handleChange}/>
