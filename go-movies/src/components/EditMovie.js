@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import './EditMovie.css';
 import Input from './form-components/Input';
 import Textarea from './form-components/Textarea';
@@ -236,6 +237,10 @@ export default class EditMovie extends Component {
         }
     }
 
+    confirmDelete = (evt) => {
+        console.log("[EditMovie][confirmDelete] => (this.state.movie.id):", this.state.movie.id);
+    }
+
     render() {
         let {movie, isLoaded, error, errors} = this.state;
 
@@ -319,7 +324,13 @@ export default class EditMovie extends Component {
                             rows={"3"}
                             handleChange={this.handleChange}/>
 
-                        <button className="btn btn-primary">Save</button>       
+                        <button className="btn btn-primary">Save</button>    
+                        <Link to="/admin" className="btn btn-secondary ms-2">Cancel</Link>  
+                        {movie.id > 0 && (
+                            <a  href="#!" 
+                                onClick={ () => this.confirmDelete()}
+                                className="btn btn-danger ms-2">Delete</a>
+                        )}
                     </form>
                     {/* <div className="mt-3">
                         <pre>{JSON.stringify(this.state, null, 3)}</pre>
