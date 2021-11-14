@@ -56,19 +56,23 @@ export default class EditMovie extends Component {
         console.log(`${logSnippet} (payload["title"]): `, payload["title"]);
 
         // BEGIN: CLIENT SIDE VALIDATION
+        let errorCount = 0;
         let errors = {};
         if (payload.title === "") {
             errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+            errorCount++;
         } else {
             errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         }
         if (payload.release_date === "") {
             errors["release_date"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a release date for this movie."};
+            errorCount++;
         } else {
             errors["release_date"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         }
         if (payload.runtime === "") {
             errors["runtime"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a runtime (in minutes) for this movie."};
+            errorCount++;
         } else {
             errors["runtime"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         }
@@ -79,6 +83,7 @@ export default class EditMovie extends Component {
         // }
         if (payload.rating === "") {
             errors["rating"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a viewer rating (1-5) for this movie."};
+            errorCount++;
         } else {
             errors["rating"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         }
@@ -89,7 +94,7 @@ export default class EditMovie extends Component {
         // }
 
         this.setState({errors: errors});
-        if (errors.length > 0) {
+        if ( errorCount > 0) {
             return false;
         }
         // END: CLIENT SIDE VALIDATION
