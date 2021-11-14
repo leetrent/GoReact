@@ -15,3 +15,6 @@ $ npm install bootstrap
 
 # Install React Router DOM:
 $ npm install react-router-dom
+
+# Install react-confirm-alert:
+$ npm install react-confirm-alert --save
