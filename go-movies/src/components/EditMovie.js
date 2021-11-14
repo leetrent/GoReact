@@ -25,7 +25,15 @@ export default class EditMovie extends Component {
                 {id: "NC17", value: "NC17" }
             ],
             isLoaded: false,
-            error: null
+            error: null,
+            errors: {
+                "title"         : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                "release_date"  : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                "runtime"       : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                //"mpaa_rating"   : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                "rating"        : {errorCss: "", errorDiv: "d-none", errorMsg: ""},
+                //"description"   : {errorCss: "", errorDiv: "d-none", errorMsg: ""}
+            }
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -39,6 +47,48 @@ export default class EditMovie extends Component {
         const payload = Object.fromEntries(data.entries());
 
         console.log(`${logSnippet} (payload): `, payload);
+        console.log(`${logSnippet} (payload.title): `, payload.title);
+        console.log(`${logSnippet} (payload["title"]): `, payload["title"]);
+
+        // BEGIN: CLIENT SIDE VALIDATION
+        let errors = {};
+        if (payload.title === "") {
+            errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+        } else {
+            errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+        if (payload.release_date === "") {
+            errors["release_date"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a release date for this movie."};
+        } else {
+            errors["release_date"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+        if (payload.runtime === "") {
+            errors["runtime"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a runtime (in minutes) for this movie."};
+        } else {
+            errors["runtime"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+        // if (payload.mpaa_rating === "") {
+        //     errors["mpaa_rating"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide an MPAA rating for this movie."};
+        // } else {
+        //     errors["mpaa_rating"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        // }
+        if (payload.rating === "") {
+            errors["rating"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a viewer rating (1-5) for this movie."};
+        } else {
+            errors["rating"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        }
+        // if (payload.description === "") {
+        //     errors["description"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a description for this movie."};
+        // } else {
+        //     errors["description"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        // }
+
+        this.setState({errors: errors});
+        if (errors.length > 0) {
+            return false;
+        }
+        // END: CLIENT SIDE VALIDATION
+
 
         const requestOptions = {
             method: 'POST',
@@ -53,19 +103,75 @@ export default class EditMovie extends Component {
     };
 
     handleChange = (evt) => {
+        const logSnippet = "[EditMovie][handleChange] =>";
+
         let value = evt.target.value;
         let name = evt.target.name;
 
-        console.log("[EditMovie][handleChange] => (evt.target.value):", evt.target.value);
-        console.log("[EditMovie][handleChange] => (evt.target.name).:", evt.target.name);
+        console.log(`${logSnippet} (evt.target.value):`, evt.target.value);
+        console.log(`${logSnippet} (evt.target.name).:`, evt.target.name);
+        
+        // BEGIN: CLIENT SIDE VALIDATION
+        let errors = this.state.errors;
+        console.log(`${logSnippet} (this.state.errors).:`, this.state.errors)
+        console.log(`${logSnippet} (errors).:`, errors)
+        switch(evt.target.name) {
+            case 'title':
+                if (evt.target.value === "") {
+                    errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
+                 }else {
+                    errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
+                break;
+            case 'release_date':
+                if (evt.target.value === "") {
+                    errors["release_date"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a release date for this movie."};
+                } else {
+                    errors["release_date"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
+                break;
+            case 'runtime':
+                if (evt.target.value === "") {
+                    errors["runtime"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a runtime (in minutes) for this movie."};
+                } else {
+                    errors["runtime"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
+                break;
+            // case 'mpaa_rating':
+            //     if (evt.target.value === "") {
+            //         errors["mpaa_rating"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide an MAPP rating for this movie."};
+            //     } else {
+            //         errors["mpaa_rating"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+            //     }
+            //     break;
+            case 'rating':
+                if (evt.target.value === "") {
+                    errors["rating"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a viewer rating (1-5) for this movie."};
+                } else {
+                    errors["rating"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+                }
+                break;
+        //    case 'description':
+        //         if (evt.target.value === "") {
+        //             errors["description"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a viewer rating (1-5) for this movie."};
+        //         } else {
+        //             errors["description"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
+        //         }
+        //         break;
+        }
+        // END: CLIENT SIDE VALIDATION
 
         this.setState( (prevState) => ({
             movie: {
                 ...prevState.movie,
                 [name]: value
-            }
+            },
+            errors: errors
         }));
+    }
 
+    hasError(key) {
+        return this.state.errors.indexOf(key) !== -1;
     }
 
     componentDidMount() {
@@ -113,7 +219,7 @@ export default class EditMovie extends Component {
     }
 
     render() {
-        let {movie, isLoaded, error} = this.state;
+        let {movie, isLoaded, error, errors} = this.state;
 
         if (error) {
             return <div>Error: {error.message}</div>
@@ -138,20 +244,31 @@ export default class EditMovie extends Component {
                             name={"title"}
                             value={movie.title}
                             handleChange={this.handleChange}
+                            className={errors["title"].errorCss}
+                            errorDiv={errors["title"].errorDiv}
+                            errorMsg={errors["title"].errorMsg}
                         />
                         <Input 
                             type={"date"}
                             title={"Release Date"}
                             name={"release_date"}
                             value={movie.release_date}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            className={errors["release_date"].errorCss}
+                            errorDiv={errors["release_date"].errorDiv}
+                            errorMsg={errors["release_date"].errorMsg}
+                        />
 
                         <Input 
-                            type={"text"}
-                            title={"Runetime"}
+                            type={"number"}
+                            title={"Runetime (in minutes)"}
                             name={"runtime"}
                             value={movie.runtime}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            className={errors["runtime"].errorCss}
+                            errorDiv={errors["runtime"].errorDiv}
+                            errorMsg={errors["runtime"].errorMsg}
+                        />
 
                         <Select 
                             title={"MPAA Rating"}
@@ -159,14 +276,19 @@ export default class EditMovie extends Component {
                             options={this.state.mpaaOptions}
                             value={movie.mpaa_rating}
                             handleChange={this.handleChange} 
-                            placeholder={"Choose..."}/>
+                            placeholder={"Choose..."}
+                        />
 
                         <Input 
-                            type={"text"}
-                            title={"Rating"}
+                            type={"number"}
+                            title={"Rating (1-5)"}
                             name={"rating"}
                             value={movie.rating}
-                            handleChange={this.handleChange}/>
+                            handleChange={this.handleChange}
+                            className={errors["rating"].errorCss}
+                            errorDiv={errors["rating"].errorDiv}
+                            errorMsg={errors["rating"].errorMsg}
+                        />
 
                         <Textarea 
                             title={"Description"}
