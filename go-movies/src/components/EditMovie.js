@@ -179,6 +179,7 @@ export default class EditMovie extends Component {
         //             errors["description"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
         //         }
         //         break;
+                default:
         }
         // END: CLIENT SIDE VALIDATION
 
