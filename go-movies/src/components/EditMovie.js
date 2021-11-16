@@ -10,6 +10,7 @@ import Alert from './ui-components/Alert';
 
 export default class EditMovie extends Component {
     constructor(props) {
+        console.log("[EditMovie][constructor] =>");
         super(props);
         this.state = {
             movie: {
@@ -116,9 +117,10 @@ export default class EditMovie extends Component {
                     alert: { type: "alert-danger", message: data.error.message}
                 });
             } else {
-                this.setState({
-                    alert: { type: "alert-success", message: "Changes were successfully changed!"}
-                });            
+                // this.setState({
+                //     alert: { type: "alert-success", message: "Changes were successfully changed!"}
+                // });    
+                this.props.history.push({pathname: "/admin"});
             }
         });
     };
@@ -140,7 +142,7 @@ export default class EditMovie extends Component {
             case 'title':
                 if (evt.target.value === "") {
                     errors["title"] = {errorCss: "is-invalid", errorDiv: "text-danger", errorMsg: "Please provide a movie title."};
-                 }else {
+                 } else {
                     errors["title"] = {errorCss: "is-valid", errorDiv: "", errorMsg: ""};
                 }
                 break;

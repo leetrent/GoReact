@@ -16,7 +16,7 @@ export default function App() {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="mt-3">Go Watch a Movie!</h1>
+            <h1 className="mt-3">Planet Movie</h1>
             <hr className="mb-3"></hr>
           </div>
         </div>
