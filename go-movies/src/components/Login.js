@@ -21,8 +21,8 @@ export default class Login extends Component {
     }
 
     handleChange = (evt) => {
-        let value = this.target.value;
-        let name = this.target.name;
+        let value = evt.target.value;
+        let name = evt.target.name;
         this.setState((prevState) => ({
             ...prevState,
             [name]: value
@@ -42,7 +42,35 @@ export default class Login extends Component {
         if (errors.length > 0) {
             return false;
         }
-    }
+
+        const data = new FormData(evt.target);
+        const payload = Object.fromEntries(data.entries());
+
+        console.log("[Login][handleSubmit] => (payload):", payload);
+        
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        };
+
+        console.log("[Login][handleSubmit] => (requestOptions):", payload);
+
+        fetch("http://localhost:4000/v1/signin", requestOptions)
+        .then( (response) => response.json() )
+        .then( (data) => {
+            if (data.error) {
+                console.log("[Login][handleSubmit] => (data.error.message):", data.error.message);
+                this.setState({
+                    alert: {
+                        type: "alert-danger",
+                        message: data.error.message
+                    }
+                })
+            } else {
+                console.log("[Login][handleSubmit] => (data):", data);
+            }
+        })
+    };
 
     hasError(key) {
         return this.state.errors.indexOf(key) !== -1;
@@ -53,10 +81,10 @@ export default class Login extends Component {
             <Fragment>
                 <h2>Login</h2>
                 <hr />
-                {/* <Alert>
+                <Alert
                     alertType={this.state.alert.type}
                     alertMessage={this.state.alert.message}
-                </Alert> */}
+                />
                 <form className="pt-1" onSubmit={this.handleSubmit}>
                     <Input
                         title={"Email"}

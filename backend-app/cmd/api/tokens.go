@@ -24,6 +24,8 @@ type Credentials struct {
 }
 
 func (app *application) Signin(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("[tokens.go][Signin] =>")
+
 	var creds Credentials
 
 	err := json.NewDecoder(r.Body).Decode(&creds)

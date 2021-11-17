@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -20,6 +21,8 @@ func (app *application) writeJSON(w http.ResponseWriter, status int, data interf
 }
 
 func (app *application) errorJSON(w http.ResponseWriter, err error) {
+	fmt.Println("[utlities.go][errorJSON] => (err.Error()):", err.Error())
+
 	type jsonError struct {
 		Message string `json:"message"`
 	}
@@ -28,5 +31,9 @@ func (app *application) errorJSON(w http.ResponseWriter, err error) {
 		Message: err.Error(),
 	}
 
-	app.writeJSON(w, http.StatusBadRequest, theError, "error")
+	if err.Error() == "unauthorized" {
+		app.writeJSON(w, http.StatusUnauthorized, theError, "error")
+	} else {
+		app.writeJSON(w, http.StatusBadRequest, theError, "error")
+	}
 }
