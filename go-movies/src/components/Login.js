@@ -31,6 +31,17 @@ export default class Login extends Component {
 
     handleSubmit = (evt) => {
         evt.preventDefault();
+        let errors = [];
+        if (this.state.email === "") {
+            errors.push("email")
+        }
+        if (this.state.password === "") {
+            errors.push("password")
+        }
+        this.setState({errors: errors});
+        if (errors.length > 0) {
+            return false;
+        }
     }
 
     hasError(key) {
