@@ -24,7 +24,7 @@ type Credentials struct {
 }
 
 func (app *application) Signin(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("[tokens.go][Signin] =>")
+	//fmt.Println("[tokens.go][Signin] =>")
 
 	var creds Credentials
 
@@ -57,5 +57,5 @@ func (app *application) Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.writeJSON(w, http.StatusOK, jwtBytes, "response")
+	app.writeJSON(w, http.StatusOK, string(jwtBytes), "response")
 }
