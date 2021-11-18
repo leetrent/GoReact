@@ -54,6 +54,10 @@ export default class EditMovie extends Component {
         evt.preventDefault();
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
+        
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + this.props.jwt);
 
         console.log(`${logSnippet} (payload): `, payload);
         console.log(`${logSnippet} (payload.title): `, payload.title);
@@ -106,7 +110,8 @@ export default class EditMovie extends Component {
 
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            headers: myHeaders
         };
 
         fetch('http://localhost:4000/v1/admin/editmovie', requestOptions)
@@ -199,6 +204,8 @@ export default class EditMovie extends Component {
     }
 
     componentDidMount() {
+        console.log("[EditMovie][componentDidMount] => (this.props.jwt):", this.props.jwt);
+
         const id = this.props.match.params.id;
         console.log("[EditMovie][componentDidMount] => (url):", `http://localhost:4000/v1/movie/${id}`);
         if (id > 0) {
