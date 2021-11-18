@@ -20,8 +20,13 @@ func (app *application) writeJSON(w http.ResponseWriter, status int, data interf
 	return nil // no error
 }
 
-func (app *application) errorJSON(w http.ResponseWriter, err error) {
+func (app *application) errorJSON(w http.ResponseWriter, err error, status ...int) {
 	fmt.Println("[utlities.go][errorJSON] => (err.Error()):", err.Error())
+
+	statusCode := http.StatusBadRequest
+	if len(status) > 0 {
+		statusCode = status[0]
+	}
 
 	type jsonError struct {
 		Message string `json:"message"`
@@ -34,6 +39,6 @@ func (app *application) errorJSON(w http.ResponseWriter, err error) {
 	if err.Error() == "unauthorized" {
 		app.writeJSON(w, http.StatusUnauthorized, theError, "error")
 	} else {
-		app.writeJSON(w, http.StatusBadRequest, theError, "error")
+		app.writeJSON(w, statusCode, theError, "error")
 	}
 }
