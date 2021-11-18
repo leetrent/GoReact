@@ -21,6 +21,10 @@ $ go get github.com/pascaldekloe/jwt
 # Install bcrypt package:
 $ go get golang.org/x/crypto/bcrypt
 
+# Install Alice
+# Alice provides a convenient way to chain your HTTP middleware functions and the app handler.
+$ go get github.com/justinas/alice
+
 # Genereate a password hash:
 https://play.golang.org/p/uKMMCzJWGsW
 
