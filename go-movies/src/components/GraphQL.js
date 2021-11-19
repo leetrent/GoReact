@@ -18,20 +18,19 @@ export default class GraphQL extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange = (evt) => {
-        let value = evt.target.value;
+    handleChange = (evt) => {        
         this.setState(
             (prevState) => ({
-                searchTerm: value
+                searchTerm: evt.target.value
             })
         );
-        this.performSearch();
+        this.performSearch(evt.target.value);
     }
 
-    performSearch() {
+    performSearch(searchTerm) {
         const payload = `
         {
-            search(titleContains: "${this.state.searchTerm}") {
+            search(titleContains: "${searchTerm}") {
                 id
                 title
                 runtime
@@ -72,6 +71,10 @@ export default class GraphQL extends Component {
     }
 
     componentDidMount() {
+        this.retrieveAllMovies();
+    }
+
+    retrieveAllMovies() {
         const payload = `
         {
             list {
