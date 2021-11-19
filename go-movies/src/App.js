@@ -9,6 +9,7 @@ import Genres from './components/Genres';
 import OneGenre from './components/OneGenre';
 import EditMovie from './components/EditMovie';
 import Login from './components/Login';
+import GraphQL from './components/GraphQL';
 
 
 export default class App extends Component {
@@ -69,6 +70,9 @@ export default class App extends Component {
                       </li>
                     </Fragment>
                     )}
+                    <li className="list-group-item">
+                      <Link to="/graphql">GraphQL</Link>
+                    </li>
                 </ul>
                 <pre>
                   {JSON.stringify(this.state, null, 3)}
@@ -89,6 +93,10 @@ export default class App extends Component {
 
                 <Route exact path="/genres">
                   <Genres />
+                </Route>
+
+                <Route exact path="/graphql">
+                  <GraphQL />
                 </Route>
 
                 <Route path="/admin/movie/:id" component={ (props) => <EditMovie {... props} jwt={this.state.jwt}/>}  />
