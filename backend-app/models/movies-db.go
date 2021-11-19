@@ -101,7 +101,7 @@ func (m *DBModel) All(genre ...int) ([]*Movie, error) {
 			&movie.Year,
 			&movie.ReleaseDate,
 			&movie.Rating,
-			&movie.Rating,
+			&movie.Runtime,
 			&movie.MPAARating,
 			&movie.CreatedAt,
 			&movie.UpdatedAt,

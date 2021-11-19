@@ -100,7 +100,7 @@ func (app *application) moviesGraphQL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	query := string(q)
-	log.Println(query)
+	//log.Println(query)
 
 	rootQuery := graphql.ObjectConfig{Name: "RootQuery", Fields: fields}
 	schemaConfig := graphql.SchemaConfig{Query: graphql.NewObject(rootQuery)}
