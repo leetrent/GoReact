@@ -34,5 +34,9 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/v1/movies/:genre_id", app.getAllMoviesByGenre)
 	router.HandlerFunc(http.MethodGet, "/v1/genres", app.getAllGenres)
 
+	// GraphQL
+	router.HandlerFunc(http.MethodPost, "/v1/graphql/list", app.moviesGraphQL)
+
+	// ENABLE CORS and return
 	return app.enableCORS(router)
 }
