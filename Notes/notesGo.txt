@@ -26,6 +26,7 @@ $ go get golang.org/x/crypto/bcrypt
 $ go get github.com/justinas/alice
 
 # Install graphql-go
+$ go get github.com/graphql-go/graphql
 
 # Genereate a password hash:
 https://play.golang.org/p/uKMMCzJWGsW
