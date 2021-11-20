@@ -15,8 +15,10 @@ export default class Admin extends Component {
             });
             return;
         }
+        let url = `${process.env.REACT_APP_API_URL}/v1/movies`
+        console.log("(url):", url);
 
-        fetch("http://localhost:4000/v1/movies")
+        fetch(url)
             //.then((response) => response.json())
             .then((response) => {
                 console.log("Status code:", response.status)

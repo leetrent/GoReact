@@ -4,9 +4,10 @@ export default class OneMovie extends Component {
     state = { movie : {}, isLoaded: false, error: null }
 
     componentDidMount() {
-        fetch("http://localhost:4000/v1/movie/" + this.props.match.params.id)
-        //fetch(`http://localhost:4000/v1/movie/${this.props.match.params.id}`)
-            //.then((response) => response.json())
+        let url = `${process.env.REACT_APP_API_URL}/v1/movie/${this.props.match.params.id}`
+        console.log("[OneMovie][componentDidMount] => (url):", url)
+
+        fetch(url)
             .then((response) => {
                 console.log("Status code:", response.status)
                 if (response.status !== "200") {

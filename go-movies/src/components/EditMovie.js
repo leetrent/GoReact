@@ -42,7 +42,8 @@ export default class EditMovie extends Component {
             alert : {
                 type: "d-none",
                 message: ""
-            }
+            },
+            apiUrl: `${process.env.REACT_APP_API_URL}`
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -114,7 +115,8 @@ export default class EditMovie extends Component {
             headers: myHeaders
         };
 
-        fetch('http://localhost:4000/v1/admin/editmovie', requestOptions)
+        let url = `${this.state.apiUrl}/v1/admin/editmovie`;
+        fetch(url, requestOptions)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -215,7 +217,7 @@ export default class EditMovie extends Component {
         const id = this.props.match.params.id;
         console.log("[EditMovie][componentDidMount] => (url):", `http://localhost:4000/v1/movie/${id}`);
         if (id > 0) {
-            fetch(`http://localhost:4000/v1/movie/${id}`)
+            fetch(`${this.state.apiUrl}/v1/movie/${id}`)
             .then( (response) => {
                 if (response.status !== "200") {
                     let err = Error;
@@ -275,7 +277,7 @@ export default class EditMovie extends Component {
               {
                 label: 'Yes',
                 onClick: () => {
-                    fetch(`http://localhost:4000/v1/admin/deletemovie/${this.state.movie.id}`, requestOptions)
+                    fetch(`${this.state.apiUrl}/v1/admin/deletemovie/${this.state.movie.id}`, requestOptions)
                     .then(response => response.json)
                     .then(data => {
                         if (data.error) {

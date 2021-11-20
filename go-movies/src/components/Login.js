@@ -55,7 +55,8 @@ export default class Login extends Component {
 
         console.log("[Login][handleSubmit] => (requestOptions):", payload);
 
-        fetch("http://localhost:4000/v1/signin", requestOptions)
+        let url = `${process.env.REACT_APP_API_URL}/v1/signin`;
+        fetch(url, requestOptions)
         .then( (response) => response.json() )
         .then( (data) => {
             if (data.error) {
