@@ -10,8 +10,7 @@ export default class OneGenre extends Component {
     };
 
     componentDidMount() {
-        let url = `${process.env.REACT_APP_API_URL}/v1/signin`;
-        fetch(`${process.env.REACT_APP_API_URL}/v1/movies/${this.props.match.params.id}`)
+         fetch(`${process.env.REACT_APP_API_URL}/v1/movies/${this.props.match.params.id}`)
             //.then((response) => response.json())
             .then((response) => {
                 console.log("Status code:", response.status)

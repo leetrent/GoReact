@@ -9,6 +9,7 @@ export default class Movies extends Component {
     };
 
     componentDidMount() {
+            console.log("[Movies.js][componentDidMount] => (url):", process.env.REACT_APP_API_URL)
             fetch(`${process.env.REACT_APP_API_URL}/v1/movies`)
             //.then((response) => response.json())
             .then((response) => {
