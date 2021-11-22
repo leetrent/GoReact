@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 //import {HashRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
-import Movies from './components/Movies';
 import OneMovie from './components/OneMovie';
 import Genres from './components/Genres';
 import OneGenre from './components/OneGenre';
@@ -11,6 +10,7 @@ import EditMovie from './components/EditMovie';
 import Login from './components/Login';
 import GraphQL from './components/GraphQL';
 import OneMovieGraphQL from './components/OneMovieGraphQL';
+import MoviesFunc from './components/MoviesFunc';
 
 
 export default class App extends Component {
@@ -86,8 +86,9 @@ export default class App extends Component {
                 <Route path="/moviesgraphql/:id" component={OneMovieGraphQL} />
              
                 <Route path="/movies">
-                  <Movies />
+                  <MoviesFunc />
                 </Route>
+
                 <Route path="/genre/:id" component={OneGenre}/>
 
                 <Route exact path="/login" component={ (props) => <Login {...props} handleJWTChange={this.handleJWTChange}/>} />
