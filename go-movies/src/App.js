@@ -3,7 +3,8 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 //import {HashRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
 import Home from './components/Home';
 import Admin from './components/Admin';
-import OneMovie from './components/OneMovie';
+//import OneMovie from './components/OneMovie';
+import OneMovieFunc from './components/OneMovieFunc';
 // import Genres from './components/Genres';
 import OneGenre from './components/OneGenre';
 import EditMovie from './components/EditMovie';
@@ -83,7 +84,7 @@ export default class App extends Component {
             </div>
             <div className="col-md-10">
               <Switch>
-                <Route path="/movies/:id" component={OneMovie} />
+                <Route path="/movies/:id" component={OneMovieFunc} />
                 <Route path="/moviesgraphql/:id" component={OneMovieGraphQL} />
              
                 <Route path="/movies">
