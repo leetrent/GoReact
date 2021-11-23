@@ -52,7 +52,7 @@ export default class Admin extends Component {
         } else {
             return (
                 <Fragment>
-                    <h2 class="h3">Manage Movie Catalog</h2>
+                    <h2 className="h3">Manage Movie Catalog</h2>
                     <div className="list-group">
                         {movies.map( (m) => (
                             <Link 
