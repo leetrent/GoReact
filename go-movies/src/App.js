@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 //import {HashRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
 import Home from './components/Home';
-import Admin from './components/Admin';
+import AdminFunc from './components/AdminFunc';
 //import OneMovie from './components/OneMovie';
 import OneMovieFunc from './components/OneMovieFunc';
 // import Genres from './components/Genres';
@@ -107,7 +107,7 @@ export default class App extends Component {
                 </Route>
 
                 <Route path="/admin/movie/:id" component={ (props) => <EditMovieFunc {... props} jwt={this.state.jwt}/>}  />
-                <Route path="/admin" component={ (props) => <Admin {... props} jwt={this.state.jwt}/>}  />            
+                <Route path="/admin" component={ (props) => <AdminFunc {... props} jwt={this.state.jwt}/>}  />            
 
                 <Route path="/">
                   <Home />
