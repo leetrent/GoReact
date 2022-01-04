@@ -1,15 +1,25 @@
 ########################################################
-# React
+# React - localhost
 ########################################################
 # Deploy React on localhost:
 $ export REACT_APP_API_URL='http://localhost:4000'
 
+########################################################
+# React - Deploy to Production
+########################################################
 # Deploy React to Production Server (example):
-$ export REACT_APP_API_URL='https://api.learn-code.ca/'
+$ export REACT_APP_API_URL='https://api.leetrent.net'
+# Execute the following from the root of React project:
 $ npm run build
 
 ########################################################
-# Go
+# Go - Lee's Laptop
 ########################################################
 $ export GO_MOVIES_JWT='2dce505d96a53c5768052ee90f3df2055657518dad489160df9913f66042e160'
 $ export GO_MOVIES_DB='postgres://postgres:Ca$eyPo0h@localhost/go_movies?sslmode=disable'
+
+########################################################
+# Go - Linode
+########################################################
+$ export GO_MOVIES_JWT='2dce505d96a53c5768052ee90f3df2055657518dad489160df9913f66042e160'
+$ export GO_MOVIES_DB='postgres://lee:~da6f9rMb5d8w@localhost/go_movies?sslmode=disable'

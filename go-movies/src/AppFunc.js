@@ -11,7 +11,7 @@ import OneMovieGraphQL from './components/OneMovieGraphQL';
 import MoviesFunc from './components/MoviesFunc';
 import GenresFunc from './components/GenresFunc';
 
-function AppFunc(props) {
+export default function AppFunc(props) {
     const [jwt, setJwt] = useState("");
 
     function handleJWTChange(jwt) {
@@ -104,5 +104,3 @@ function AppFunc(props) {
         </Router>
     );
 }
-
-export default AppFunc;

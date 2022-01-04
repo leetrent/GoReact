@@ -33,3 +33,6 @@ https://play.golang.org/p/uKMMCzJWGsW
 
 # Generate a JWT Secret:
 https://play.golang.org/p/s8KlqJIOWej
+
+# Compile for distributin to Linux server:
+$ env GOOS=linux GOARCH=amd64 go build -o gomovies ./cmd/api

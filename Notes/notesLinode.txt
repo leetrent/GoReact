@@ -1,0 +1,78 @@
+########################################
+# Copy React build.zip to Linode server:
+########################################
+ $ scp build.zip lee@96.126.118.228:/home/lee/goreact
+ $ ssh lee@96.126.118.228
+ $ cd goreact
+ $ unzip build.zip
+ $ mv build leetrent.net
+ $ sudo mv leetrent.net/ /var/www
+
+########################################
+# Copy GO binary to Linode server:
+########################################
+$ scp gomovies lee@96.126.118.228:/home/lee/goreact
+$ ssh lee@96.126.118.228
+$ cd /var/www
+$ sudo mkdir api.leetrent.net
+$ cd api.leetrent.net
+$ sudo cp ~/goreact/gomovies .
+
+#################################################
+# Configure Caddy Virtual Hosts on Linode server:
+#################################################
+$ cd /etc/caddy/conf.d
+
+$ sudo vi leetrent.net.conf
+leetrent.net {
+        encode zstd gzip
+        import static
+        import security
+
+        root * /var/www/leetrent.net
+
+        file_server
+}
+
+$ sudo vi api.leetrent.net.conf
+api.leetrent.net {
+        encode zstd gzip
+        import security
+        reverse_proxy localhost:4000
+}
+
+
+$ sudo service caddy status
+$ sudo systemctl reload caddy
+
+##################################################
+# Configure Supervisor on Linode server to run Go:
+##################################################
+$ cd /etc/supervisor/conf.d
+$ sudo vi api.conf
+
+$ export GO_MOVIES_JWT='2dce505d96a53c5768052ee90f3df2055657518dad489160df9913f66042e160'
+$ export GO_MOVIES_DB='postgres://postgres:Ca$eyPo0h@localhost/go_movies?sslmode=disable'
+$ export GO_MOVIES_DB='postgres://lee:~da6f9rMb5d8w@localhost/go_movies?sslmode=disable'
+[program:api]
+command=env GO_MOVIES_JWT='2dce505d96a53c5768052ee90f3df2055657518dad489160df9913f66042e160' GO_MOVIES_DB='postgres://lee:~da6f9rMb5d8w@localhost/go_movies?sslmode=disable' /var/www/api.leetrent.net/gomovies
+directory=/var/www/api.leetrent.net
+autorestart=true
+autostart=true
+stdout_logfile=/var/www/api.leetrent.net/api.log
+
+lee@linode01:/etc/supervisor/conf.d$ sudo supervisorctl
+rps                              RUNNING   pid 108339, uptime 2 days, 0:46:16
+supervisor> reread
+api: available
+supervisor> update
+api: added process group
+supervisor> status
+api                              RUNNING   pid 134756, uptime 0:00:09
+rps                              RUNNING   pid 108339, uptime 2 days, 0:47:13
+supervisor>
+
+
+
+
+
